@@ -28,6 +28,8 @@ def split_subj(data_dir, cv_split, subNum):
     return subTrain, subTest
 
 
+# TODO: Test if sort_video_list works 
+
 def take_last_ele(ele):
     ele = ele.split('.')[0][-2:]
     try:
@@ -36,12 +38,11 @@ def take_last_ele(ele):
         return int(ele[-1:])
 
 
-def sort_video_list(data_dir, taskList, subTrain):
+def sort_video_list(data_dir, sub_list):
     final = []
-    for p in subTrain:
-        for t in taskList:
-            x = glob.glob(os.path.join(data_dir, 'P' + str(p) + 'T' + str(t) + 'VideoB2*.mat'))
-            x = sorted(x)
-            x = sorted(x, key=take_last_ele)
-            final.append(x)
+    for sub in sub_list:
+        x = glob.glob(os.path.join(data_dir, "subject" + str(sub) + "/vid.avi"))
+        x = sorted(x)
+        x = sorted(x, key=take_last_ele)
+        final.append(x)
     return final
