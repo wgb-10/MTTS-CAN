@@ -66,7 +66,11 @@ print('input args:\n', json.dumps(vars(args), indent=4, separators=(',', ':'))) 
 # %% Spliting Data
 
 print('Spliting Data...')
+
+# They had 27 (RGB) individual channel space signals.
 subNum = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 25, 26, 27])
+
+# There were a total of 6 tasks
 taskList = list(range(1, args.nb_task+1))
 
 # %% Training
@@ -95,16 +99,16 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
     print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
 
     with strategy.scope():
-        if strategy.num_replicas_in_sync == 4:
-            print("Using 4 GPUs for training")
-            if args.temporal == 'CAN' or args.temporal == 'MT_CAN':
+        if strategy.num_replicas_in_sync == 1:
+            print("Using GPU for training")
+            # if args.temporal == 'CAN' or args.temporal == 'MT_CAN':
+            #     args.batch_size = 32
+            # elif args.temporal == 'CAN_3D' or args.temporal == 'MT_CAN_3D':
+            #     args.batch_size = 12
+            if args.temporal == 'TS_CAN' or args.temporal == 'MTTS_CAN':
                 args.batch_size = 32
-            elif args.temporal == 'CAN_3D' or args.temporal == 'MT_CAN_3D':
-                args.batch_size = 12
-            elif args.temporal == 'TS_CAN' or args.temporal == 'MTTS_CAN':
-                args.batch_size = 32
-            elif args.temporal == 'Hybrid_CAN' or args.temporal == 'MT_Hybrid_CAN':
-                args.batch_size = 16
+            # elif args.temporal == 'Hybrid_CAN' or args.temporal == 'MT_Hybrid_CAN':
+            #     args.batch_size = 16
             else:
                 raise ValueError('Unsupported Model Type!')
         elif strategy.num_replicas_in_sync == 8:

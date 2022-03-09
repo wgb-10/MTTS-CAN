@@ -43,7 +43,8 @@ class DataGenerator(keras.utils.Sequence):
 
     def __data_generation(self, list_video_temp):
         'Generates data containing batch_size samples'
-
+        
+        # Respiration is drsub, HR is dysub
         if self.respiration == 1:
             label_key = "drsub"
         else:
