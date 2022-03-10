@@ -1,0 +1,63 @@
+Paper:
+
+MTTS-CAN is an improvement to DeepPhys. Network completely based on 2D CNNs therfore takes only 6ms per frame. 
+Potentially could be used for real-time HR measurement.
+
+Experimental Setup:
+
+During data acquisition, a multi-imager semicircular array (a total of 9 synchronized, visible spectrum imagers)
+centered on the imaged participant in a controlled light environment was used to record the participant’s head 
+motions during specific tasks.
+
+Each participant was recorded six times with increasing head motion in each task.
+
+The six recordings were repeated twice in front of two backgrounds.
+
+
+
+Questions:
+
+What is frame depth?
+
+
+
+Code (Given):
+
+When running predict_vitals.py, the x-axis of graph obtained contains the number of frames. y-axis is wave amplitude
+I think.
+
+
+
+Code (My Version):
+
+Remember to always use my fork of the code.
+
+Will work with only UBFC for now and if there's time, I'll use PURE.
+
+The path to the ground truth will be what I already preprocessed from RemotePPG:
+(D:\OneDrive\Documents\rPPG-Projects\Datasets-Preprocessed\UBFC2\DATASET_2)
+
+The path to the videos will be my year 4 one drive: 
+(D:\OneDrive - Heriot-Watt University\Computer Science Uni\Year 4\Datasets\UBFC_DATASET\DATASET_2)
+
+Need to update the following functions from preprocess.py:
+
+- get_nframe_video, split_subj, sort_video_list
+
+Check if sort_video_list works.
+
+
+Implementation:
+
+When feeding data into the model, I'll map each frame to its corresponding row in the phys table (for UBFC). This 
+will exhaust all frames, but some table entries won't have an associated frame (as table entries aka ground truth
+is sampled at 30Hz whereas videos are less than 30FPS).
+
+
+
+
+
+
+
+
+
