@@ -46,3 +46,16 @@ def sort_video_list(data_dir, sub_list):
         x = sorted(x, key=take_last_ele)
         final.append(x)
     return final
+
+
+# Old code
+
+# def sort_video_list(data_dir, taskList, subTrain):
+#     final = []
+#     for p in subTrain:
+#         for t in taskList:
+#             x = glob.glob(os.path.join(data_dir, 'P' + str(p) + 'T' + str(t) + 'VideoB2*.mat'))
+#             x = sorted(x)
+#             x = sorted(x, key=take_last_ele)
+#             final.append(x)
+#     return final

@@ -29,6 +29,11 @@ Code (Given):
 When running predict_vitals.py, the x-axis of graph obtained contains the number of frames. y-axis is wave amplitude
 I think.
 
+By looking at the code, I found out that the authors did preprocessing on the dataset outside the current code base. This included adding the 
+video frames, labels (ground truth for each frame) and the frame normalization in a single matlab file for each video.
+
+The files are then read using the h5py library.
+
 
 
 Code (My Version):

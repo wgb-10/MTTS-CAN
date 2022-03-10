@@ -54,6 +54,9 @@ class DataGenerator(keras.utils.Sequence):
             # dim = (36,36)
 
             # shape of data: (n_frames_per_vid * no. of vids, 36, 36, 6)
+            # I think last dimension is 6 because there are 3 frames per channel (RGB) and 3 normalized frames per channel
+            # using formula (c(t + 1) - c(t))/(c(t) + c(t + 1))
+
             data = np.zeros((self.nframe_per_video * len(list_video_temp), self.dim[0], self.dim[1], 6), dtype=np.float32)
             label = np.zeros((self.nframe_per_video * len(list_video_temp), 1), dtype=np.float32)
 
@@ -70,8 +73,8 @@ class DataGenerator(keras.utils.Sequence):
                 data[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :, :, :] = dXsub
                 label[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :] = dysub
 
-            motion_data = data[:, :, :, :3]
-            apperance_data = data[:, :, :, -3:]
+            motion_data = data[:, :, :, :3]         # First 3 frames are normalized ones
+            apperance_data = data[:, :, :, -3:]     # Last 3 frames are RGB ones
             apperance_data = np.reshape(apperance_data, (num_window, self.frame_depth, self.dim[0], self.dim[1], 3))
             apperance_data = np.average(apperance_data, axis=1)
             apperance_data = np.repeat(apperance_data[:, np.newaxis, :, :, :], self.frame_depth, axis=1)
