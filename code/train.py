@@ -73,14 +73,13 @@ if args.dataset_name == 'UBFC':
 elif args.dataset_name == 'PURE':
     subNum = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])    
 
-# They had 27 (RGB) individual channel space signals.
+# They (AFRL dataset) had 27 (RGB) individual channel space signals.
 # subNum = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 25, 26, 27])
 
 # There were a total of 6 tasks
 taskList = list(range(1, args.nb_task+1))
 
 # %% Training
-
 
 def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
     print('================================')
@@ -97,7 +96,7 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
 
     print('sample path: ', path_of_video_tr[0])
     nframe_per_video = get_nframe_video(path_of_video_tr[0])
-    print('Trian Length: ', len(path_of_video_tr))
+    print('Train Length: ', len(path_of_video_tr))
     print('Test Length: ', len(path_of_video_test))
     print('nframe_per_video', nframe_per_video)
 
@@ -228,6 +227,7 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
         print('****************************************')
         print('Start saving predicitions from the last epoch')
 
+        # Saving the best model
         training_generator = DataGenerator(path_of_video_tr, nframe_per_video, (img_rows, img_cols),
                                            batch_size=args.batch_size, frame_depth=args.frame_depth,
                                            temporal=args.temporal, respiration=args.respiration, shuffle=False)

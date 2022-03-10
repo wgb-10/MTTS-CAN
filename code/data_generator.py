@@ -57,7 +57,6 @@ class DataGenerator(keras.utils.Sequence):
             data = np.zeros((self.nframe_per_video * len(list_video_temp), self.dim[0], self.dim[1], 6), dtype=np.float32)
             label = np.zeros((self.nframe_per_video * len(list_video_temp), 1), dtype=np.float32)
 
-
             # A window is defined by frames per vid / frame depth (window size)
             num_window = int(self.nframe_per_video / self.frame_depth) * len(list_video_temp)
 

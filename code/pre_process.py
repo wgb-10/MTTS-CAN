@@ -9,7 +9,7 @@ import scipy.io
 def get_nframe_video(path):
     temp_f1 = h5py.File(path, 'r')
     temp_dysub = np.array(temp_f1["dysub"])
-    nframe_per_video = temp_dysub.shape[0]
+    nframe_per_video = temp_dysub.shape[0]          # In this case no. frames = no. of GT (ground truth) measurements
     return nframe_per_video
 
 
