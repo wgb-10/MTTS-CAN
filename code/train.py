@@ -54,8 +54,7 @@ parser.add_argument('-t', '--nb_task', type=int, default=12,
 parser.add_argument('-fd', '--frame_depth', type=int, default=10,
                     help='frame_depth for CAN_3D, TS_CAN, Hybrid_CAN')
 parser.add_argument('-temp', '--temporal', type=str, default='TS_CAN',
-                    help='CAN, MT_CAN, CAN_3D, MT_CAN_3D, Hybrid_CAN, \
-                    MT_Hybrid_CAN, TS_CAN, MTTS_CAN ')
+                    help='Model Type')
 parser.add_argument('-save', '--save_all', type=int, default=1,
                     help='save all or not')
 parser.add_argument('-resp', '--respiration', type=int, default=0,
@@ -126,63 +125,63 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
         else:
             raise Exception('Only supporting 4 GPUs or 8 GPUs now. Please adjust learning rate in the training script!')
 
-        if args.temporal == 'CAN':
-            print('Using CAN!')
-            model = CAN(args.nb_filters1, args.nb_filters2, input_shape, dropout_rate1=args.dropout_rate1,
-                        dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
-        elif args.temporal == 'MT_CAN':
-            print('Using MT_CAN!')
-            model = MT_CAN(args.nb_filters1, args.nb_filters2, input_shape, dropout_rate1=args.dropout_rate1,
-                           dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
-        elif args.temporal == 'CAN_3D':
-            print('Using CAN_3D!')
-            input_shape = (img_rows, img_cols, args.frame_depth, 3)
-            model = CAN_3D(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape,
-                           dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
-        elif args.temporal == 'MT_CAN_3D':
-            print('Using MT_CAN_3D!')
-            input_shape = (img_rows, img_cols, args.frame_depth, 3)
-            model = MT_CAN_3D(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape,
-                              dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2,
-                              nb_dense=args.nb_dense)
-        elif args.temporal == 'TS_CAN':
+        if args.temporal == 'TS_CAN':
             print('Using TS_CAN!')
             input_shape = (img_rows, img_cols, 3)
             model = TS_CAN(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape,
                            dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
-        elif args.temporal == 'MTTS_CAN':
-            print('Using MTTS_CAN!')
-            input_shape = (img_rows, img_cols, 3)
-            model = MTTS_CAN(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape,
-                             dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
-        elif args.temporal == 'Hybrid_CAN':
-            print('Using Hybrid_CAN!')
-            input_shape_motion = (img_rows, img_cols, args.frame_depth, 3)
-            input_shape_app = (img_rows, img_cols, 3)
-            model = Hybrid_CAN(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape_motion,
-                               input_shape_app,
-                               dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2,
-                               nb_dense=args.nb_dense)
-        elif args.temporal == 'MT_Hybrid_CAN':
-            print('Using MT_Hybrid_CAN!')
-            input_shape_motion = (img_rows, img_cols, args.frame_depth, 3)
-            input_shape_app = (img_rows, img_cols, 3)
-            model = MT_Hybrid_CAN(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape_motion,
-                                  input_shape_app,
-                                  dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2,
-                                  nb_dense=args.nb_dense)
         else:
             raise ValueError('Unsupported Model Type!')
+        # if args.temporal == 'CAN':
+        #     print('Using CAN!')
+        #     model = CAN(args.nb_filters1, args.nb_filters2, input_shape, dropout_rate1=args.dropout_rate1,
+        #                 dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
+        # elif args.temporal == 'MT_CAN':
+        #     print('Using MT_CAN!')
+        #     model = MT_CAN(args.nb_filters1, args.nb_filters2, input_shape, dropout_rate1=args.dropout_rate1,
+        #                    dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
+        # elif args.temporal == 'CAN_3D':
+        #     print('Using CAN_3D!')
+        #     input_shape = (img_rows, img_cols, args.frame_depth, 3)
+        #     model = CAN_3D(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape,
+        #                    dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
+        # elif args.temporal == 'MT_CAN_3D':
+        #     print('Using MT_CAN_3D!')
+        #     input_shape = (img_rows, img_cols, args.frame_depth, 3)
+        #     model = MT_CAN_3D(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape,
+        #                       dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2,
+        #                       nb_dense=args.nb_dense)
+        # elif args.temporal == 'MTTS_CAN':
+        #     print('Using MTTS_CAN!')
+        #     input_shape = (img_rows, img_cols, 3)
+        #     model = MTTS_CAN(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape,
+        #                      dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2, nb_dense=args.nb_dense)
+        # elif args.temporal == 'Hybrid_CAN':
+        #     print('Using Hybrid_CAN!')
+        #     input_shape_motion = (img_rows, img_cols, args.frame_depth, 3)
+        #     input_shape_app = (img_rows, img_cols, 3)
+        #     model = Hybrid_CAN(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape_motion,
+        #                        input_shape_app,
+        #                        dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2,
+        #                        nb_dense=args.nb_dense)
+        # elif args.temporal == 'MT_Hybrid_CAN':
+        #     print('Using MT_Hybrid_CAN!')
+        #     input_shape_motion = (img_rows, img_cols, args.frame_depth, 3)
+        #     input_shape_app = (img_rows, img_cols, 3)
+        #     model = MT_Hybrid_CAN(args.frame_depth, args.nb_filters1, args.nb_filters2, input_shape_motion,
+        #                           input_shape_app,
+        #                           dropout_rate1=args.dropout_rate1, dropout_rate2=args.dropout_rate2,
+        #                           nb_dense=args.nb_dense)
 
         optimizer = tf.keras.optimizers.Adadelta(learning_rate=args.lr)
-        if args.temporal == 'MTTS_CAN' or args.temporal == 'MT_Hybrid_CAN' or args.temporal == 'MT_CAN_3D' or \
-                args.temporal == 'MT_CAN':
-            losses = {"output_1": "mean_squared_error", "output_2": "mean_squared_error"}
-            loss_weights = {"output_1": 1.0, "output_2": 1.0}
-            model.compile(loss=losses, loss_weights=loss_weights, optimizer=optimizer)
-        else:
-            model.compile(loss='mean_squared_error', optimizer=optimizer)
+        model.compile(loss='mean_squared_error', optimizer=optimizer)
         print('learning rate: ', args.lr)
+        # if args.temporal == 'MTTS_CAN' or args.temporal == 'MT_Hybrid_CAN' or args.temporal == 'MT_CAN_3D' or \
+        #         args.temporal == 'MT_CAN':
+        #     losses = {"output_1": "mean_squared_error", "output_2": "mean_squared_error"}
+        #     loss_weights = {"output_1": 1.0, "output_2": 1.0}
+        #     model.compile(loss=losses, loss_weights=loss_weights, optimizer=optimizer)
+        # else:
 
         # %% Create data genener
         training_generator = DataGenerator(path_of_video_tr, nframe_per_video, (img_rows, img_cols),
@@ -219,13 +218,13 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
         score = model.evaluate_generator(generator=validation_generator, verbose=1)
 
         print('****************************************')
-        if args.temporal == 'MTTS_CAN' or args.temporal == 'MT_Hybrid_CAN' or args.temporal == 'MT_CAN_3D' \
-                or args.temporal == 'MT_CAN':
-            print('Average Test Score: ', score[0])
-            print('PPG Test Score: ', score[1])
-            print('Respiration Test Score: ', score[2])
-        else:
-            print('Test score:', score)
+        # if args.temporal == 'MTTS_CAN' or args.temporal == 'MT_Hybrid_CAN' or args.temporal == 'MT_CAN_3D' \
+        #         or args.temporal == 'MT_CAN':
+        #     print('Average Test Score: ', score[0])
+        #     print('PPG Test Score: ', score[1])
+        #     print('Respiration Test Score: ', score[2])
+        # else:
+        print('Test score:', score)
         print('****************************************')
         print('Start saving predicitions from the last epoch')
 
