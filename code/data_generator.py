@@ -20,7 +20,7 @@ class DataGenerator(keras.utils.Sequence):
         self.nframe_per_video = nframe_per_video
         self.shuffle = shuffle
         self.temporal = temporal
-        self.frame_depth = frame_depth
+        self.frame_depth = frame_depth                  # This is the window size
         self.respiration = respiration
         self.on_epoch_end()
 
@@ -58,6 +58,7 @@ class DataGenerator(keras.utils.Sequence):
             label = np.zeros((self.nframe_per_video * len(list_video_temp), 1), dtype=np.float32)
 
 
+            # A window is defined by frames per vid / frame depth (window size)
             num_window = int(self.nframe_per_video / self.frame_depth) * len(list_video_temp)
 
             # TODO: change this block

@@ -17,7 +17,10 @@ The six recordings were repeated twice in front of two backgrounds.
 
 Questions:
 
-What is frame depth?
+In data_generator.py:
+
+What is frame depth?    
+Ans. Frame depth is the window size (number of adjacent frames)
 
 
 
