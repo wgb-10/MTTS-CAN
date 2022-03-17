@@ -76,7 +76,7 @@ elif args.dataset_name == 'PURE':
 # They (AFRL dataset) had 27 (RGB) individual channel space signals.
 # subNum = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 25, 26, 27])
 
-# There were a total of 6 tasks
+# There were a total of 6 tasks (AFRL dataset). Used in the sort_video_list function.
 taskList = list(range(1, args.nb_task+1))
 
 # %% Training
