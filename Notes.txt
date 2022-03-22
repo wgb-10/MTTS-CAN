@@ -38,8 +38,6 @@ The files are then read using the h5py library.
 
 Code (My Version):
 
-Remember to always use my fork of the code.
-
 Will work with only UBFC for now and if there's time, I'll use PURE.
 
 The path to the ground truth will be what I already preprocessed from RemotePPG:
