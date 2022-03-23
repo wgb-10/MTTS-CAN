@@ -19,7 +19,7 @@ def get_nframe_video_val(path):
     nframe_per_video = temp_dXsub.shape[0]
     return nframe_per_video
 
-
+# TODO: Find out how this works
 def split_subj(data_dir, cv_split, subNum):
     f3 = h5py.File(data_dir + '/M.mat', 'r')
     M = np.transpose(np.array(f3["M"])).astype(np.bool)
@@ -33,7 +33,7 @@ def split_subj(data_dir, cv_split, subNum):
 def take_last_ele(ele):
     ele = ele.split('.')[0][-2:]
     try:
-        return int(ele[-2:])
+        return int(ele[-2:])    
     except ValueError:
         return int(ele[-1:])
 

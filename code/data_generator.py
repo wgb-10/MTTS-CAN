@@ -76,7 +76,7 @@ class DataGenerator(keras.utils.Sequence):
                 label[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :] = dysub
 
             motion_data = data[:, :, :, :3]         # First 3 frames are normalized ones
-            apperance_data = data[:, :, :, -3:]     # Last 3 frames are RGB ones
+            apperance_data = data[:, :, :, -3:]     # Last 3 frames are RGB ones (will be the other way around for me)
             apperance_data = np.reshape(apperance_data, (num_window, self.frame_depth, self.dim[0], self.dim[1], 3))
             apperance_data = np.average(apperance_data, axis=1)
             apperance_data = np.repeat(apperance_data[:, np.newaxis, :, :, :], self.frame_depth, axis=1)
