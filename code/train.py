@@ -249,5 +249,5 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
 # %% Training
 
 print('Using Split ', str(args.cv_split))
-subTrain, subTest = split_subj(args.data_dir, args.cv_split, subNum)
+subTrain, subTest = split_subj(args.data_dir, args.cv_split, subNum)    # cv_split is the current split number
 train(args, subTrain, subTest, args.cv_split)

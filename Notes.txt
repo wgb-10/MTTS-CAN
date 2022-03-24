@@ -45,6 +45,7 @@ Stored data (video frames and corresponding data in a hdf5 file for each subject
 Each frame has a corresponding label (ppg signal value). The last frame of the video was excluded as it did not have a 
 succeeding frame for normalization.
 
+The frames were resized to 36x36 pixels.
 
 TODO:
 
