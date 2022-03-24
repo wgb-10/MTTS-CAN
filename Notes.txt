@@ -49,20 +49,14 @@ The frames were resized to 36x36 pixels.
 
 TODO:
 
+Modify and test functions in pre_process.py
+
 Go through all TODOs in the codebase.
 
 Leave split_subj for now, will just use 3 subs for train and 2 for test (since atm I have 5 subjects total).
 
 Check out how data generator works in tensorflow. Do I need to store the frames of all videos in the same np array as was done in 
 data_generator.py ?
-
-
-
-Need to update the following functions from preprocess.py:
-
-- get_nframe_video, split_subj, sort_video_list(idt I need sort_video_list)
-
-
 
 
 
