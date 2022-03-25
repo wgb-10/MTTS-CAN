@@ -12,7 +12,7 @@ from tensorflow import keras
 
 class DataGenerator(keras.utils.Sequence):
     'Generates data for Keras'
-    def __init__(self, paths_of_videos, nframe_per_video, dim, batch_size=32, frame_depth=10,
+    def __init__(self, paths_of_videos, nframe_per_video, dim, batch_size=12, frame_depth=10,
                  shuffle=True, temporal=True, respiration=0):
         self.dim = dim
         self.batch_size = batch_size
