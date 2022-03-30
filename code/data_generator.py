@@ -9,6 +9,8 @@ import h5py
 import numpy as np
 from tensorflow import keras
 
+from utils import read_hdf5
+
 
 class DataGenerator(keras.utils.Sequence):
     'Generates data for Keras'
@@ -43,9 +45,6 @@ class DataGenerator(keras.utils.Sequence):
 
     def __data_generation(self, list_video_temp):
         'Generates data containing batch_size samples'
-        
-        # This will be the key for HR data
-        label_key = 'dysub'
 
         if self.temporal == 'TS_CAN':
             
@@ -67,17 +66,17 @@ class DataGenerator(keras.utils.Sequence):
 
             # TODO: change this block
             for index, temp_path in enumerate(list_video_temp):
-                f1 = h5py.File(temp_path, 'r')
-                dXsub = np.transpose(np.array(f1["dXsub"])) 
-                dysub = np.array(f1[label_key])
+                images, labels = read_hdf5(temp_path)
 
                 # Storing dXsub and dysub into the arrays defined above
-                data[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :, :, :] = dXsub
-                label[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :] = dysub
+                data[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :, :, :] = images
+                label[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :] = labels
 
-            motion_data = data[:, :, :, :3]         # First 3 frames are normalized ones
-            apperance_data = data[:, :, :, -3:]     # Last 3 frames are RGB ones (will be the other way around for me)
+            motion_data = data[:, :, :, :-3]         # Last 3 frames are normalized
+            apperance_data = data[:, :, :, 3:]       # First 3 frames are RGB
             apperance_data = np.reshape(apperance_data, (num_window, self.frame_depth, self.dim[0], self.dim[1], 3))
+
+            # TODO: Check this
             apperance_data = np.average(apperance_data, axis=1)
             apperance_data = np.repeat(apperance_data[:, np.newaxis, :, :, :], self.frame_depth, axis=1)
             apperance_data = np.reshape(apperance_data, (apperance_data.shape[0] * apperance_data.shape[1],
