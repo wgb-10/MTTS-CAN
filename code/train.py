@@ -65,13 +65,7 @@ print('input args:\n', json.dumps(vars(args), indent=4, separators=(',', ':'))) 
 
 # %% Spliting Data
 
-print('Spliting Data...')
-
-if args.dataset_name == 'UBFC':
-    subNum = np.array([1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 22, 23, 24, 25, 26, 27, 3, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 4, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 5, 8, 9])
-
-elif args.dataset_name == 'PURE':
-    subNum = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])    
+print('Spliting Data...')  
 
 # They (AFRL dataset) had 27 (RGB) individual channel space signals.
 # subNum = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 25, 26, 27])
@@ -249,5 +243,5 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
 # %% Training
 
 print('Using Split ', str(args.cv_split))
-subTrain, subTest = split_subj(args.data_dir, args.cv_split, subNum)    # cv_split is the current split number
+subTrain, subTest = split_subj(args.data_dir, args.cv_split)    # cv_split is the current split number
 train(args, subTrain, subTest, args.cv_split)
