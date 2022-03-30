@@ -53,7 +53,7 @@ class DataGenerator(keras.utils.Sequence):
 
             # dim = (36,36)
 
-            # shape of data: (n_frames_per_vid * no. of vids, 36, 36, 6)
+            # shape of data: (n_frames_per_vid * no. of vids in batch, 36, 36, 6)
             # I think last dimension is 6 because there are 3 frames per channel (RGB) and 3 normalized frames per channel
             # using formula (c(t + 1) - c(t))/(c(t) + c(t + 1)). For the motion branch, the authors calculate normalized frames 
             # using every two adjacent frames by the formula above. We exclude the last frame and use it to normalize the 

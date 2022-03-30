@@ -19,8 +19,14 @@ Questions:
 
 In data_generator.py:
 
-What is frame depth?    
+Q1. What is frame depth?    
 Ans. Frame depth is the window size (number of adjacent frames)
+
+Q2. Do I need to store the frames of all videos in the same np array as was done in 
+data_generator.py ?
+
+Ans. I will need to find the video having the most number of frames, and pad the other videos with 0s in their hdf5 files. This needs to be done 
+because in data_generator.py, the videos in each batch are stored in a single array.
 
 
 
@@ -34,6 +40,7 @@ video frames, labels (ground truth for each frame) and the frame normalization i
 
 The files are then read using the h5py library.
 
+In data_generator.py, all videos are assumed to be of the same length. This is done so that all videos can be saved in one ndarray for each batch.
 
 
 Code (My Version):
@@ -52,14 +59,9 @@ Batch size was reduced to 12
 
 TODO:
 
-Modify and test functions in pre_process.py
+Find the video having the most number of frames, and pad the other videos with 0s in their hdf5 files.
 
 Go through all TODOs in the codebase.
-
-Leave split_subj for now, will just use 3 subs for train and 2 for test (since atm I have 5 subjects total).
-
-Check out how data generator works in tensorflow. Do I need to store the frames of all videos in the same np array as was done in 
-data_generator.py ?
 
 
 
