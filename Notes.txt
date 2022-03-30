@@ -59,10 +59,6 @@ Batch size was reduced to 12
 
 TODO:
 
-Test whether all videos have the same no. of frames and labels
-
-Find the video having the least number of frames, and make all videos have that many number of frames.
-
 Go through all TODOs in the codebase.
 
 
