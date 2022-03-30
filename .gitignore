@@ -1,2 +1,3 @@
 *.code-workspace
 img_process.ipynb
+__pycache__

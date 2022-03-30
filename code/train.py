@@ -15,9 +15,8 @@ import scipy.io
 import tensorflow as tf
 
 from data_generator import DataGenerator
-from model import HeartBeat, CAN, CAN_3D, Hybrid_CAN, TS_CAN, MTTS_CAN, \
-    MT_Hybrid_CAN, MT_CAN_3D, MT_CAN
-from pre_process import get_nframe_video, split_subj, sort_video_list
+from model import HeartBeat, TS_CAN
+from pre_process import get_nframe_video, split_subj
 
 np.random.seed(100)  # for reproducibility
 tf.test.is_gpu_available()
