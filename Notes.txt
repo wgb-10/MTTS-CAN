@@ -25,8 +25,8 @@ Ans. Frame depth is the window size (number of adjacent frames)
 Q2. Do I need to store the frames of all videos in the same np array as was done in 
 data_generator.py ?
 
-Ans. I will need to find the video having the most number of frames, and pad the other videos with 0s in their hdf5 files. This needs to be done 
-because in data_generator.py, the videos in each batch are stored in a single array.
+Ans. I will need to find the video having the least number of frames, and make all videos have the same number of frames as 
+the minimum. This needs to be done because in data_generator.py, the videos in each batch are stored in a single array.
 
 
 
@@ -59,7 +59,9 @@ Batch size was reduced to 12
 
 TODO:
 
-Find the video having the most number of frames, and pad the other videos with 0s in their hdf5 files.
+Test whether all videos have the same no. of frames and labels
+
+Find the video having the least number of frames, and make all videos have that many number of frames.
 
 Go through all TODOs in the codebase.
 
