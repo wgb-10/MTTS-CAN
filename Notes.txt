@@ -47,6 +47,7 @@ succeeding frame for normalization.
 
 The frames were resized to 36x36 pixels.
 
+Batch size was reduced to 12
 
 
 TODO:

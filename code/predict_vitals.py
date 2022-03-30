@@ -56,7 +56,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--video_path', type=str, help='processed video path')
     parser.add_argument('--sampling_rate', type=int, default = 30, help='sampling rate of your video')
-    parser.add_argument('--batch_size', type=int, default = 100, help='batch size (multiplier of 10)')
+    parser.add_argument('--batch_size', type=int, default = 12, help='batch size (12 by default)')
     args = parser.parse_args()
 
     predict_vitals(args)

@@ -83,16 +83,14 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
 
     input_shape = (img_rows, img_cols, 3)
 
-    path_of_video_tr = sort_video_list(args.data_dir, subTrain)
-    path_of_video_test = sort_video_list(args.data_dir, subTest)
-    path_of_video_tr = list(itertools.chain(*path_of_video_tr))  # Fllaten the list
-    path_of_video_test = list(itertools.chain(*path_of_video_test))
+    path_of_video_tr = subTrain 
+    path_of_video_test = subTest
 
-    print('sample path: ', path_of_video_tr[0])
+    print('Path of 1st Video: ', path_of_video_tr[0])
     nframe_per_video = get_nframe_video(path_of_video_tr[0])
-    print('Train Length: ', len(path_of_video_tr))
-    print('Test Length: ', len(path_of_video_test))
-    print('nframe_per_video', nframe_per_video)
+    # print('Train Length: ', len(path_of_video_tr))
+    # print('Test Length: ', len(path_of_video_test))
+    # print('nframe_per_video', nframe_per_video)
 
     strategy = tf.distribute.MirroredStrategy()
     print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
@@ -105,7 +103,7 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
             # elif args.temporal == 'CAN_3D' or args.temporal == 'MT_CAN_3D':
             #     args.batch_size = 12
             if args.temporal == 'TS_CAN' or args.temporal == 'MTTS_CAN':
-                args.batch_size = 12            # TODO: Reduce batch size to 12
+                args.batch_size = 12            
             # elif args.temporal == 'Hybrid_CAN' or args.temporal == 'MT_Hybrid_CAN':
             #     args.batch_size = 16
             else:

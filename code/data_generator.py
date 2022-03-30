@@ -89,6 +89,8 @@ class DataGenerator(keras.utils.Sequence):
             raise ValueError('Unsupported Model!')
 
         return output, label
+
+        
         # elif self.temporal == 'MTTS_CAN':
         #     data = np.zeros((self.nframe_per_video * len(list_video_temp), self.dim[0], self.dim[1], 6), dtype=np.float32)
         #     label_y = np.zeros((self.nframe_per_video * len(list_video_temp), 1), dtype=np.float32)
