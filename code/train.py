@@ -16,7 +16,7 @@ import tensorflow as tf
 
 from data_generator import DataGenerator
 from model import HeartBeat, TS_CAN
-from pre_process import get_nframe_video, split_subj
+from pre_process import get_nframe_of_video, split_subj
 
 np.random.seed(100)  # for reproducibility
 tf.test.is_gpu_available()
@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-exp', '--exp_name', default='test', type=str,
                     help='experiment name')
 parser.add_argument('-i', '--data_dir', type=str, help='Location for the dataset')
-parser.add_argument('-n', '--dataset_name', type=str, required=True, help='UBFC, PURE')
+parser.add_argument('-n', '--dataset_name', type=str, help='UBFC, PURE')
 parser.add_argument('-o', '--save_dir', type=str, default='./rPPG-checkpoints',
                     help='Location for parameter checkpoints and samples')
 parser.add_argument('-a', '--nb_filters1', type=int, default=32,
@@ -44,7 +44,7 @@ parser.add_argument('-l', '--lr', type=float, default=1.0,
                             help='learning rate')
 parser.add_argument('-e', '--nb_dense', type=int, default=128,
                     help='number of dense units')
-parser.add_argument('-f', '--cv_split', type=int, default=0,
+parser.add_argument('-f', '--cv_split', type=int, default=0.7,
                     help='cv_split')
 parser.add_argument('-g', '--nb_epoch', type=int, default=24,
                     help='nb_epoch')
@@ -66,12 +66,6 @@ print('input args:\n', json.dumps(vars(args), indent=4, separators=(',', ':'))) 
 
 print('Spliting Data...')  
 
-# They (AFRL dataset) had 27 (RGB) individual channel space signals.
-# subNum = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 25, 26, 27])
-
-# There were a total of 6 tasks (AFRL dataset). Used in the sort_video_list function.
-taskList = list(range(1, args.nb_task+1))
-
 # %% Training
 
 def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
@@ -86,7 +80,7 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
     path_of_video_test = subTest
 
     print('Path of 1st Video: ', path_of_video_tr[0])
-    nframe_per_video = get_nframe_video(path_of_video_tr[0])
+    nframe_per_video = get_nframe_of_video(path_of_video_tr[0])
     # print('Train Length: ', len(path_of_video_tr))
     # print('Test Length: ', len(path_of_video_test))
     # print('nframe_per_video', nframe_per_video)
