@@ -56,6 +56,8 @@ The frames were resized to 36x36 pixels.
 
 Batch size was reduced to 12
 
+Removed extra dimension from labels in data_generator.py. I think this dimension was for the ECG data from the AFRL dataset.
+
 
 TODO:
 

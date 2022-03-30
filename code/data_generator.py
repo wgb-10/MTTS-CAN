@@ -59,7 +59,7 @@ class DataGenerator(keras.utils.Sequence):
             # previous frame.
 
             data = np.zeros((self.nframe_per_video * len(list_video_temp), self.dim[0], self.dim[1], 6), dtype=np.float32)
-            label = np.zeros((self.nframe_per_video * len(list_video_temp), 1), dtype=np.float32)
+            label = np.zeros((self.nframe_per_video * len(list_video_temp)), dtype=np.float32)
 
             # A window is defined by frames per vid / frame depth (window size)
             num_window = int(self.nframe_per_video / self.frame_depth) * len(list_video_temp)
@@ -70,13 +70,14 @@ class DataGenerator(keras.utils.Sequence):
 
                 # Storing dXsub and dysub into the arrays defined above
                 data[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :, :, :] = images
-                label[index*self.nframe_per_video:(index+1)*self.nframe_per_video, :] = labels
+                label[index*self.nframe_per_video:(index+1)*self.nframe_per_video] = labels
 
             motion_data = data[:, :, :, :-3]         # Last 3 frames are normalized
             apperance_data = data[:, :, :, 3:]       # First 3 frames are RGB
+
+            # TODO: Check this (getting errors here)
             apperance_data = np.reshape(apperance_data, (num_window, self.frame_depth, self.dim[0], self.dim[1], 3))
 
-            # TODO: Check this
             apperance_data = np.average(apperance_data, axis=1)
             apperance_data = np.repeat(apperance_data[:, np.newaxis, :, :, :], self.frame_depth, axis=1)
             apperance_data = np.reshape(apperance_data, (apperance_data.shape[0] * apperance_data.shape[1],
