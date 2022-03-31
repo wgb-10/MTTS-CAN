@@ -45,6 +45,9 @@ In data_generator.py, all videos are assumed to be of the same length. This is d
 
 Code (My Version):
 
+Run train.py as follows: 
+python train.py -i "D:\\OneDrive\\Documents\\rPPG-Projects\\Datasets-Preprocessed\\hdf5\\UBFC2\\DATASET_2"
+
 Will work with only UBFC for now and if there's time, I'll use PURE.
 
 Stored data (video frames and corresponding data in a hdf5 file for each subject)
@@ -61,7 +64,7 @@ Removed extra dimension from labels in data_generator.py. I think this dimension
 
 TODO:
 
-While preprocessing, subtract the mean and scale to unit standard deviation for raw and normalized frames of each video
+While preprocessing, subtract the mean and scale to unit standard deviation for raw and normalized frames of each video.
 
 Go through all TODOs in the codebase.
 
