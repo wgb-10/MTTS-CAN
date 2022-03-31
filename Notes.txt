@@ -61,6 +61,8 @@ Removed extra dimension from labels in data_generator.py. I think this dimension
 
 TODO:
 
+While preprocessing, subtract the mean and scale to unit standard deviation for raw and normalized frames of each video
+
 Go through all TODOs in the codebase.
 
 
