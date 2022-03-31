@@ -6,8 +6,8 @@ Author: Xin Liu
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.python.keras import backend as K
-from tensorflow.python.keras.layers import Conv2D, Conv3D, Input, AveragePooling2D, \
-    multiply, Dense, Dropout, Flatten, AveragePooling3D
+from tensorflow.python.keras.layers import Conv2D, Input, AveragePooling2D, \
+    multiply, Dense, Dropout, Flatten
 from tensorflow.python.keras.models import Model
 
 

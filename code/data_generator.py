@@ -5,7 +5,6 @@ Author: Xin Liu
 
 import math
 
-import h5py
 import numpy as np
 from tensorflow import keras
 
