@@ -66,6 +66,8 @@ TODO:
 
 While preprocessing, subtract the mean and scale to unit standard deviation for raw and normalized frames of each video.
 
+Instead of cutting frames, pad with extra blank frames
+
 Go through all TODOs in the codebase.
 
 
