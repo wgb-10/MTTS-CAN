@@ -74,17 +74,17 @@ class DataGenerator(keras.utils.Sequence):
             motion_data = data[:, :, :, :-3]         # Last 3 frames are normalized
             apperance_data = data[:, :, :, 3:]       # First 3 frames are RGB
 
-            print(f'[DEBUG] frame per vids: {self.nframe_per_video}')
-            print(f'[DEBUG] len(list vid temp): {len(list_video_temp)}')
-            print(f'[DEBUG] list_video_temp: {list_video_temp}')
-            print(f'[DEBUG] num_window: {num_window}')
-            print(f'[DEBUG] data shape: {data.shape}')
-            print(f'[DEBUG] labels shape: {label.shape}')
-            print(f'[DEBUG] appearance data shape: {apperance_data.shape}')
-            print(f'[DEBUG] motion data shape: {motion_data.shape}')
-            print(f'[DEBUG] frame depth: {self.frame_depth}')
-            print(f'[DEBUG] dim 0: {self.dim[0]}')
-            print(f'[DEBUG] dim 1: {self.dim[1]}')
+            # print(f'[DEBUG] frame per vids: {self.nframe_per_video}')
+            # print(f'[DEBUG] len(list vid temp): {len(list_video_temp)}')
+            # print(f'[DEBUG] list_video_temp: {list_video_temp}')
+            # print(f'[DEBUG] num_window: {num_window}')
+            # print(f'[DEBUG] data shape: {data.shape}')
+            # print(f'[DEBUG] labels shape: {label.shape}')
+            # print(f'[DEBUG] appearance data shape: {apperance_data.shape}')
+            # print(f'[DEBUG] motion data shape: {motion_data.shape}')
+            # print(f'[DEBUG] frame depth: {self.frame_depth}')
+            # print(f'[DEBUG] dim 0: {self.dim[0]}')
+            # print(f'[DEBUG] dim 1: {self.dim[1]}')
 
             # TODO: Check this (getting errors here)
             apperance_data = np.reshape(apperance_data, (num_window, self.frame_depth, self.dim[0], self.dim[1], 3))

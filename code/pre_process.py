@@ -3,8 +3,6 @@ import os
 from utils import read_hdf5
 
 
-
-
 # Input: Path to video. Returns: Number of frames in video
 def get_nframe_of_video(path):
     _, labels = read_hdf5(path)    # No. of frames = no. of GT (ground truth) measurements
