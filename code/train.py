@@ -95,7 +95,7 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
             # elif args.temporal == 'CAN_3D' or args.temporal == 'MT_CAN_3D':
             #     args.batch_size = 12
             if args.temporal == 'TS_CAN' or args.temporal == 'MTTS_CAN':
-                args.batch_size = 2                                                     # TODO: Change batch size to 7 when using entire dataset            
+                args.batch_size = 1                                                     # TODO: Change batch size to 7 when using entire dataset            
             # elif args.temporal == 'Hybrid_CAN' or args.temporal == 'MT_Hybrid_CAN':
             #     args.batch_size = 16
             else:

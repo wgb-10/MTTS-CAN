@@ -63,7 +63,11 @@ Removed extra dimension from labels in data_generator.py. I think this dimension
 
 Instead of cutting frames, extra blank frames and labels of 0 were added. Made the total number of frames divisible by 10.
 
+Changed batch_size to 1. Ran out of memory when it was 2.
+
 TODO:
+
+Make sense of results.
 
 While preprocessing, subtract the mean and scale to unit standard deviation for raw and normalized frames of each video.
 
