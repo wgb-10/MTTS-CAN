@@ -198,7 +198,8 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
         val_loss = np.array(val_loss_history)
         np.savetxt((cv_split_path + '_val_loss_log.csv'), val_loss, delimiter=",")
 
-        score = model.evaluate_generator(generator=validation_generator, verbose=1)
+        # Changed  model.evaluate_generator to model.evaluate
+        score = model.evaluate(generator=validation_generator, verbose=1)
 
         print('****************************************')
         # if args.temporal == 'MTTS_CAN' or args.temporal == 'MT_Hybrid_CAN' or args.temporal == 'MT_CAN_3D' \
@@ -221,6 +222,8 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
                                              temporal=args.temporal, respiration=args.respiration, shuffle=False)
 
         yptrain = model.predict(training_generator, verbose=1)
+
+        # Changed destination file from .mat to .txt
         scipy.io.savemat(checkpoint_folder + '/yptrain_best_' + '_cv' + str(cv_split) + '.mat',
                          mdict={'yptrain': yptrain})
         yptest = model.predict(validation_generator, verbose=1)
