@@ -81,9 +81,12 @@ TODO:
 
 Make sense of results.
 
-Normalize images to be between 0 and 255 while reading the frames. (Need to check if they aren't)
+Add cross validation.
 
-Add cross validation
+Run predict_vitals.py on the model from the last epoch.
+
+Use pyVHR framework to test the model and other methods
+on my machine.
 
 Go through all TODOs in the codebase.
 

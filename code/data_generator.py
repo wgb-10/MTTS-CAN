@@ -86,7 +86,6 @@ class DataGenerator(keras.utils.Sequence):
             # print(f'[DEBUG] dim 0: {self.dim[0]}')
             # print(f'[DEBUG] dim 1: {self.dim[1]}')
 
-            # TODO: Check this (getting errors here)
             apperance_data = np.reshape(apperance_data, (num_window, self.frame_depth, self.dim[0], self.dim[1], 3))
 
             apperance_data = np.average(apperance_data, axis=1)
