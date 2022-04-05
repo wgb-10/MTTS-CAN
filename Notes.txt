@@ -81,6 +81,8 @@ TODO:
 
 Make sense of results.
 
+Normalize images to be between 0 and 255 while reading the frames. (Need to check if they aren't)
+
 Add cross validation
 
 Go through all TODOs in the codebase.

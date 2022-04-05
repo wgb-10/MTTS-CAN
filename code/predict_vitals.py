@@ -15,6 +15,7 @@ def predict_vitals(args):
     img_rows = 36
     img_cols = 36
     frame_depth = 10
+    # model_checkpoint = './rPPG-checkpoints/test/cv_0.7_epoch24_model.hdf5'
     model_checkpoint = './mtts_can.hdf5'
     batch_size = args.batch_size
     fs = args.sampling_rate
