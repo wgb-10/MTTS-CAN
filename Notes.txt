@@ -85,8 +85,7 @@ Add cross validation.
 
 Run predict_vitals.py on the model from the last epoch.
 
-Use pyVHR framework to test the model and other methods
-on my machine.
+Use pyVHR framework to test the model and other methods on my machine.
 
 Go through all TODOs in the codebase.
 

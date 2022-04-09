@@ -80,7 +80,7 @@ During the inference, the program will generate a sample pre-processed frame. Pl
 
 
 Tensorflow 2.2-2.4
-
+from sklearn.model_selection import KFold
 
 `conda create -n tf-gpu tensorflow-gpu cudatoolkit=10.1` -- this command takes care of both CUDA and TF environments. 
 

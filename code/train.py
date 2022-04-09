@@ -17,6 +17,8 @@ from data_generator import DataGenerator
 from model import HeartBeat, TS_CAN
 from pre_process import get_nframe_of_video, split_subj
 
+from sklearn.model_selection import KFold
+
 np.random.seed(100)  # for reproducibility
 tf.test.is_gpu_available()
 tf.keras.backend.clear_session()
@@ -53,7 +55,7 @@ parser.add_argument('-fd', '--frame_depth', type=int, default=10,
                     help='frame_depth for CAN_3D, TS_CAN, Hybrid_CAN')
 parser.add_argument('-temp', '--temporal', type=str, default='TS_CAN',
                     help='Model Type')
-parser.add_argument('-save', '--save_all', type=int, default=1,
+parser.add_argument('-save', '--save_all', type=int, default=0,
                     help='save all or not')
 parser.add_argument('-resp', '--respiration', type=int, default=0,
                     help='train with resp or not')
@@ -70,8 +72,8 @@ print('Spliting Data...')
 def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
     print('================================')
     print('Train...')
-    print('subTrain', subTrain)
-    print('subTest', subTest)
+    # print('subTrain', subTrain)
+    # print('subTest', subTest)
 
     input_shape = (img_rows, img_cols, 3)
 
@@ -198,8 +200,8 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
         val_loss = np.array(val_loss_history)
         np.savetxt((cv_split_path + '_val_loss_log.csv'), val_loss, delimiter=",")
 
-        # Changed  model.evaluate_generator to model.evaluate
-        score = model.evaluate_generator(generator=validation_generator, verbose=1)
+        # TODO: Change model.evaluate_generator to model.evaluate
+        score = model.evaluate(x=validation_generator, verbose=1)
 
         print('****************************************')
         # if args.temporal == 'MTTS_CAN' or args.temporal == 'MT_Hybrid_CAN' or args.temporal == 'MT_CAN_3D' \
@@ -231,9 +233,63 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
 
         print('Finish saving the results from the last epoch')
 
+        print(f'Score for fold {cv_split}: {model.metrics_names[0]} of {score[0]}; {model.metrics_names[1]} of {score[1]*100}%')
+        acc_per_fold.append(score[1] * 100)
+        loss_per_fold.append(score[0])
+
+
 
 # %% Training
 
-print('Using Split ', str(args.cv_split))
-subTrain, subTest = split_subj(args.data_dir, args.cv_split)    # cv_split is the current split number
-train(args, subTrain, subTest, args.cv_split)
+# Declare path to the data
+data_dir = r'D:\OneDrive\Documents\rPPG-Projects\Datasets-Preprocessed\hdf5\UBFC2\DATASET_2'
+
+
+# Store the paths of each subject into a list
+sub_paths = [os.path.join(data_dir, sub) for sub in os.listdir(data_dir)]
+
+# Initialize the K fold cross validatior
+kfold = KFold(n_splits=5, shuffle=True, random_state=1)
+
+# Convert list of subject paths to numpy array (for indexing after generating the splits in the loop below)
+data = np.array(sub_paths)
+
+
+# References: 
+# 1. https://machinelearningmastery.com/k-fold-cross-validation/ 
+# 2. https://github.com/christianversloot/machine-learning-articles/blob/main/how-to-use-k-fold-cross-validation-with-keras.md
+# 
+# (Accessed 09/04/2022)
+
+# Define per-fold score containers
+acc_per_fold = []
+loss_per_fold = []
+
+# K-fold Cross Validation model evaluation
+fold_num = 1
+
+# Enumerate splits
+for subTrain, subTest in kfold.split(data):
+
+    print('------------------------------------------------------------------------')
+    print(f'Current Fold: {fold_num}')
+
+    train(args, data[subTrain], data[subTest], fold_num)
+
+    fold_num += 1
+
+# == Provide average scores ==
+print('------------------------------------------------------------------------')
+print('Score per fold')
+
+for i in range(0, len(acc_per_fold)):
+  print('------------------------------------------------------------------------')
+  print(f'> Fold {i+1} - Loss: {loss_per_fold[i]} - Accuracy: {acc_per_fold[i]}%')
+
+print('------------------------------------------------------------------------')
+print('Average scores for all folds:')
+
+print(f'> Accuracy: {np.mean(acc_per_fold)} (+- {np.std(acc_per_fold)})')
+print(f'> Loss: {np.mean(loss_per_fold)}')
+
+print('------------------------------------------------------------------------')

@@ -9,7 +9,18 @@ def get_nframe_of_video(path):
     return labels.shape[0]
 
     
-# TODO: Shuffle the subjects before splitting them into train and test  
+# TODO: Shuffle the subjects before splitting them into train and test
+
+""" Steps needed to take for cross validation:
+    - Get all subjects in a list
+    - shuffle the subjects
+    - divide list into 5 folds
+    
+    For 5 iterations, leave one fold for testing and use other folds for training. Therefore model is tested on all 5 folds.
+    Average the results at the end and choose model with best performance. (TODO: Move this line to train.py)
+"""
+
+
 def split_subj(data_dir, cv_split):
     """ Splits the data from data_dir into train and test sets.
     Parameters:
