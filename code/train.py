@@ -47,7 +47,7 @@ parser.add_argument('-e', '--nb_dense', type=int, default=128,
                     help='number of dense units')
 parser.add_argument('-f', '--cv_split', type=int, default=0.7,
                     help='cv_split')
-parser.add_argument('-g', '--nb_epoch', type=int, default=24,
+parser.add_argument('-g', '--nb_epoch', type=int, default=24, 
                     help='nb_epoch')
 parser.add_argument('-t', '--nb_task', type=int, default=12,
                     help='nb_task')
@@ -159,7 +159,7 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
         #                           nb_dense=args.nb_dense)
 
         optimizer = tf.keras.optimizers.Adadelta(learning_rate=args.lr)
-        model.compile(loss='mean_squared_error', optimizer=optimizer)
+        model.compile(loss='mean_squared_error', optimizer=optimizer, metrics=['accuracy'])
         print('learning rate: ', args.lr)
         # if args.temporal == 'MTTS_CAN' or args.temporal == 'MT_Hybrid_CAN' or args.temporal == 'MT_CAN_3D' or \
         #         args.temporal == 'MT_CAN':
@@ -194,13 +194,12 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
 
         # %% Model Training and Saving Results
         history = model.fit(x=training_generator, validation_data=validation_generator, epochs=args.nb_epoch, verbose=1,
-                            shuffle=False, callbacks=[csv_logger, save_best_callback, hb_callback], validation_freq=4)
+                            shuffle=False, callbacks=[csv_logger, save_best_callback, hb_callback], validation_freq=4)  
 
         val_loss_history = history.history['val_loss']
         val_loss = np.array(val_loss_history)
         np.savetxt((cv_split_path + '_val_loss_log.csv'), val_loss, delimiter=",")
 
-        # TODO: Change model.evaluate_generator to model.evaluate
         score = model.evaluate(x=validation_generator, verbose=1)
 
         print('****************************************')
@@ -210,7 +209,7 @@ def train(args, subTrain, subTest, cv_split, img_rows=36, img_cols=36):
         #     print('PPG Test Score: ', score[1])
         #     print('Respiration Test Score: ', score[2])
         # else:
-        print('Test score:', score)
+        print('Test score:', score[1])
         print('****************************************')
         print('Start saving predicitions from the last epoch')
 

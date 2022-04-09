@@ -75,6 +75,8 @@ for only the first 10 subjects with no cross validation.
 
 The above preprocessing step doesn't seem to have a significant effect on the training loss and validation loss.
 
+Found out that the printed score after training was completed was not score but the test loss. (https://devdocs.io/tensorflow~2.3/keras/model).
+A metrics parameter was added during model.compile to get both loss and accuracy information returned by model.evaluate().
 
 
 TODO:
