@@ -16,7 +16,7 @@ def predict_vitals(args):
     img_cols = 36
     frame_depth = 10
     # model_checkpoint = './rPPG-checkpoints/test/cv_0.7_epoch24_model.hdf5'
-    model_checkpoint = './mtts_can.hdf5'
+    model_checkpoint = '../mtts_can.hdf5'
     batch_size = args.batch_size
     fs = args.sampling_rate
     sample_data_path = args.video_path
@@ -55,7 +55,8 @@ def predict_vitals(args):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--video_path', type=str, help='processed video path')
+    parser.add_argument('--video_path', type=str, default= r'D:\OneDrive\Pictures\Camera Roll\vid2.mp4',
+                        help='processed video path')
     parser.add_argument('--sampling_rate', type=int, default = 30, help='sampling rate of your video')
     parser.add_argument('--batch_size', type=int, default = 12, help='batch size (12 by default)')
     args = parser.parse_args()
